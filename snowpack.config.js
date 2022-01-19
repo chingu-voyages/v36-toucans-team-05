@@ -16,6 +16,6 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    baseUrl: '/v36-toucans-team-05/'
+    baseUrl: './',
   },
 };

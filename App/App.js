@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "../../_snowpack/pkg/react.js";
+import React, {useState, useEffect} from "../_snowpack/pkg/react.js";
 import {CalendarHeader} from "../CalendarHeader/index.js";
 import {Day} from "../Day/index.js";
 import {NewEventModal} from "../NewEventModal/index.js";

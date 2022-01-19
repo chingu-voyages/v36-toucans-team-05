@@ -1,4 +1,4 @@
-import React from "../../_snowpack/pkg/react.js";
+import React from "../_snowpack/pkg/react.js";
 export const CalendarHeader = ({onNext, onBack, dateDisplay}) => {
   return /* @__PURE__ */ React.createElement("div", {
     id: "header"

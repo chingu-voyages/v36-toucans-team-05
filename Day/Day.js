@@ -1,4 +1,4 @@
-import React from "../../_snowpack/pkg/react.js";
+import React from "../_snowpack/pkg/react.js";
 export const Day = ({day, onClick}) => {
   const className = `day ${day.value === "padding" ? "padding" : ""} ${day.isCurrentDay ? "currentDay" : ""}`;
   return /* @__PURE__ */ React.createElement("div", {

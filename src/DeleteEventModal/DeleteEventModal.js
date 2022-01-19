@@ -1,4 +1,4 @@
-import React from "../../_snowpack/pkg/react.js";
+import React from "../../snowpack/pkg/react.js";
 export const DeleteEventModal = ({onDelete, eventText, onClose}) => {
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
     id: "deleteEventModal"

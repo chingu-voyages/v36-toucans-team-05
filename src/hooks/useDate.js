@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from '../../_snowpack/pkg/react.js';
+import React, { useEffect, useState } from '../../snowpack/pkg/react.js';
 
 export const useDate = (events, nav) => {
   const [dateDisplay, setDateDisplay] = useState('');

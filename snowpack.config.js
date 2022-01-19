@@ -16,7 +16,7 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    out: 'docs',
-    metaUrlPath: 'snowpack'
+    metaUrlPath: 'snowpack',
+    baseUrl: './',
   },
 };

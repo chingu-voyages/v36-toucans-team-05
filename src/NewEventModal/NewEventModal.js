@@ -1,4 +1,4 @@
-import React, {useState} from "../_snowpack/pkg/react.js";
+import React, {useState} from "../../_snowpack/pkg/react.js";
 export const NewEventModal = ({onSave, onClose}) => {
   const [title, setTitle] = useState("");
   const [error, setError] = useState(false);

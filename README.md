@@ -1,14 +1,28 @@
-# voyage-tasks
+# Calendar App
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+# Overview
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+Many scheduling tools are complex and hard to use either the UI or UX, the most important feature of the calendar app is to get the information quickly when we need it. The calendar is minimal distractions and smooth for daily use. Thinking about what is most straightforward and what is the instinctive information that we look for. It’s more challenging if the user can customize the outlook of it and also provide much useful information.
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+# Features
 
-> Own it & Make it your Own!
+**Requirements**
+
+*Structure*
+- [ ] The landing page.
+- [ ] The months, dates, and days of the week.
+- [ ] A button/arrows on the calendar to change between years.
+
+*Styling*
+- [ ] Customize the theme of the calendar
+
+*Functionlality*
+- [ ] Add an event when a date is clicked.
+- [ ] Tasks - Create, manage and view your task note on the calendar date that clicked
+- [ ] Schedule simple events
+- [ ] Alias timezone conversion
+
+*Extras*
+- [ ] Allow adding public holidays of many countries around the world (optional)
+- [ ] Share and view calendar (optional)
+- [ ] Support many different languages (optional)

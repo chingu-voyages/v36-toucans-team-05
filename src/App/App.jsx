@@ -1,44 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { CalendarHeader } from '../CalendarHeader';
-import { Day } from '../Day';
-import { NewEventModal } from '../NewEventModal';
-import { DeleteEventModal } from '../DeleteEventModal';
-import { useDate } from '../hooks/useDate';
+import React, { useState, useEffect } from "react";
+import { CalendarHeader } from "../CalendarHeader";
+import { Day } from "../Day";
+import { NewEventModal } from "../NewEventModal";
+import { EditEventModal } from "../EditEventModal";
+import { useDate } from "../hooks/useDate";
+import { nanoid } from "nanoid";
 
 export const App = () => {
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
   const [events, setEvents] = useState(
-    localStorage.getItem('events') ? 
-      JSON.parse(localStorage.getItem('events')) : 
-      []
+    localStorage.getItem("events")
+      ? JSON.parse(localStorage.getItem("events"))
+      : []
   );
 
-  const eventForDate = date => events.find(e => e.date === date);
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const eventForDate = (date) => events.find((e) => e.date === date);
+  const updateEventById = (title) => {
+    events.map((item) => {
+      if (item.id === eventForDate(clicked).id) {
+        item.title = title;
+        item.date = clicked;
+        item.id = eventForDate(clicked).id;
+        return item;
+      }
+    });
+    localStorage.setItem("events", JSON.stringify(events));
+  };
 
   useEffect(() => {
-    localStorage.setItem('events', JSON.stringify(events));
+    localStorage.setItem("events", JSON.stringify(events));
   }, [events]);
 
   const { days, dateDisplay } = useDate(events, nav);
 
-  return(
+  return (
     <>
       <div id="container">
-        <CalendarHeader 
+        <CalendarHeader
           dateDisplay={dateDisplay}
           onNext={() => setNav(nav + 1)}
           onBack={() => setNav(nav - 1)}
         />
 
         <div id="weekdays">
-          <div>Sunday</div>
-          <div>Monday</div>
-          <div>Tuesday</div>
-          <div>Wednesday</div>
-          <div>Thursday</div>
-          <div>Friday</div>
-          <div>Saturday</div>
+          {weekdays.map((weekday) => (
+            <div key={nanoid()}>{weekday}</div>
+          ))}
         </div>
 
         <div id="calendar">
@@ -47,7 +65,7 @@ export const App = () => {
               key={index}
               day={d}
               onClick={() => {
-                if (d.value !== 'padding') {
+                if (d.value !== "padding") {
                   setClicked(d.date);
                 }
               }}
@@ -56,28 +74,30 @@ export const App = () => {
         </div>
       </div>
 
-      {
-        clicked && !eventForDate(clicked) &&
+      {clicked && !eventForDate(clicked) && (
         <NewEventModal
           onClose={() => setClicked(null)}
-          onSave={title => {
-            setEvents([ ...events, { title, date: clicked }]);
+          onSave={(title) => {
+            setEvents([...events, { title, date: clicked, id: nanoid() }]);
             setClicked(null);
           }}
         />
-      }
+      )}
 
-      {
-        clicked && eventForDate(clicked) &&
-        <DeleteEventModal 
+      {clicked && eventForDate(clicked) && (
+        <EditEventModal
           eventText={eventForDate(clicked).title}
+          onSave={(title) => {
+            updateEventById(title);
+            setClicked(null);
+          }}
           onClose={() => setClicked(null)}
           onDelete={() => {
-            setEvents(events.filter(e => e.date !== clicked));
+            setEvents(events.filter((e) => e.date !== clicked));
             setClicked(null);
           }}
         />
-      }
+      )}
     </>
   );
 };

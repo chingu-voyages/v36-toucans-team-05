@@ -79,13 +79,18 @@ button {
   border-radius: 5px;
   max-height: 55px;
   overflow: hidden;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .padding {
   cursor: default !important;
   background-color: #FFFCFF !important;
   box-shadow: none !important;
 }
-#newEventModal, #deleteEventModal {
+#newEventModal, #deleteEventModal, #editEventModal {
   z-index: 20;
   padding: 25px;
   background-color: #e8f4fa;
@@ -116,6 +121,15 @@ button {
 #saveButton, #closeButton {
   background-color: #92a1d1;
 }
+
+#editButton {
+  background-color: #32e222;
+}
+
+#saveButton {
+  background-color: rgb(13, 98, 255);
+}
+
 #eventText {
   font-size: 14px;
 }

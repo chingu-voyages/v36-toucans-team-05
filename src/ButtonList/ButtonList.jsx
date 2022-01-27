@@ -6,7 +6,7 @@ export const ButtonList = ({ setDateFormat }) => {
   return (
     <>
       {buttonList.map((btn) => (
-        <div id="buttonList">
+        <div id="buttonList" key={btn}>
           <button onClick={setDateFormat} id={btn.toLowerCase()}>
             {btn}
           </button>

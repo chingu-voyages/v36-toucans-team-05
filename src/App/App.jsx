@@ -15,6 +15,8 @@ export const App = () => {
       : []
   );
 
+  const [dateFormatWatcher] = useState("Days");
+
   const weekdays = [
     "Sunday",
     "Monday",
@@ -24,6 +26,12 @@ export const App = () => {
     "Friday",
     "Saturday",
   ];
+
+  const setDateFormat = (dateFormat) => {
+    // toggle the  day, month, year
+    // TODO:implement this
+    console.log(dateFormat);
+  };
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -51,6 +59,7 @@ export const App = () => {
           dateDisplay={dateDisplay}
           onNext={() => setNav(nav + 1)}
           onBack={() => setNav(nav - 1)}
+          setDateFormat={setDateFormat}
         />
 
         <div id="weekdays">
@@ -59,19 +68,25 @@ export const App = () => {
           ))}
         </div>
 
-        <div id="calendar">
-          {days.map((d, index) => (
-            <Day
-              key={index}
-              day={d}
-              onClick={() => {
-                if (d.value !== "padding") {
-                  setClicked(d.date);
-                }
-              }}
-            />
-          ))}
-        </div>
+        {dateFormatWatcher === "Days" ? (
+          <div id="calendar">
+            {days.map((d, index) => (
+              <Day
+                key={index}
+                day={d}
+                onClick={() => {
+                  if (d.value !== "padding") {
+                    setClicked(d.date);
+                  }
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          ""
+        )}
+
+        {dateFormatWatcher === "Weeks" ? <div></div> : '' }
       </div>
 
       {clicked && !eventForDate(clicked) && (

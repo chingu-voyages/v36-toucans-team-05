@@ -142,3 +142,11 @@ button {
   position: absolute;
   background-color: rgba(0,0,0,0.8);
 }
+
+#buttonList {
+  display: flex;
+}
+
+#buttonList button {
+  background-color: #92a1d1;
+}

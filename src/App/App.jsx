@@ -5,6 +5,7 @@ import { NewEventModal } from "../NewEventModal";
 import { EditEventModal } from "../EditEventModal";
 import { useDate } from "../hooks/useDate";
 import { nanoid } from "nanoid";
+import { DATE_FORMAT, WEEKDAYS } from "../utils/constant";
 
 export const App = () => {
   const [nav, setNav] = useState(0);
@@ -15,23 +16,10 @@ export const App = () => {
       : []
   );
 
-  const [dateFormatWatcher] = useState("Days");
+  const [activeDateFormat, setActiveDateFormat] = useState(DATE_FORMAT[0]);
+  const setDateFormat = (dateFormat) => setActiveDateFormat(dateFormat);
 
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  const setDateFormat = (dateFormat) => {
-    // toggle the  day, month, year
-    // TODO:implement this
-    console.log(dateFormat);
-  };
+  const { days, dateDisplay } = useDate(events, nav);
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -50,8 +38,6 @@ export const App = () => {
     localStorage.setItem("events", JSON.stringify(events));
   }, [events]);
 
-  const { days, dateDisplay } = useDate(events, nav);
-
   return (
     <>
       <div id="container">
@@ -63,14 +49,13 @@ export const App = () => {
         />
 
         <div id="weekdays">
-          {weekdays.map((weekday) => (
-            <div key={nanoid()}>{weekday}</div>
-          ))}
+          {activeDateFormat === "Day" &&
+            WEEKDAYS.map((weekday) => <div key={nanoid()}>{weekday}</div>)}
         </div>
 
-        {dateFormatWatcher === "Days" ? (
-          <div id="calendar">
-            {days.map((d, index) => (
+        <div id="calendar">
+          {activeDateFormat === "Day" &&
+            days.map((d, index) => (
               <Day
                 key={index}
                 day={d}
@@ -81,12 +66,9 @@ export const App = () => {
                 }}
               />
             ))}
-          </div>
-        ) : (
-          ""
-        )}
+        </div>
 
-        {dateFormatWatcher === "Weeks" ? <div></div> : '' }
+        {activeDateFormat === "Weeks" ? <div></div> : ""}
       </div>
 
       {clicked && !eventForDate(clicked) && (

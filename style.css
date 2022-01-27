@@ -22,16 +22,19 @@ button {
   color: #d36c6c;
   font-size: 26px;
   font-family: sans-serif;
+}
+
+#subheader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+
 #header button {
   background-color:#92a1d1;
 }
 #header > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 #container {
   width: 770px;
@@ -143,10 +146,15 @@ button {
   background-color: rgba(0,0,0,0.8);
 }
 
-#buttonList {
+#dateFormatDisplay {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#buttonList button {
+#dateFormatDisplay #buttonList button {
+  display: inherit;
+  justify-content: center;
+  align-items: center;
   background-color: #92a1d1;
 }

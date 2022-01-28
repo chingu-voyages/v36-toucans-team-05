@@ -4,8 +4,8 @@ import { Day } from "../Day";
 import { NewEventModal } from "../NewEventModal";
 import { EditEventModal } from "../EditEventModal";
 import { useDate } from "../hooks/useDate";
-import { nanoid } from "nanoid";
-import { DATE_FORMAT, WEEKDAYS } from "../utils/constant";
+import { Weeks } from "../Components/Weeks";
+import { VIEW_FORMAT } from "../config/enum";
 
 export const App = () => {
   const [nav, setNav] = useState(0);
@@ -16,7 +16,7 @@ export const App = () => {
       : []
   );
 
-  const [activeDateFormat, setActiveDateFormat] = useState(DATE_FORMAT[0]);
+  const [activeDateFormat, setActiveDateFormat] = useState(VIEW_FORMAT.Day);
   const setDateFormat = (dateFormat) => setActiveDateFormat(dateFormat);
 
   const { days, dateDisplay } = useDate(events, nav);
@@ -48,13 +48,10 @@ export const App = () => {
           setDateFormat={setDateFormat}
         />
 
-        <div id="weekdays">
-          {activeDateFormat === "Day" &&
-            WEEKDAYS.map((weekday) => <div key={nanoid()}>{weekday}</div>)}
-        </div>
+        <Weeks activeDateFormat={activeDateFormat} />
 
         <div id="calendar">
-          {activeDateFormat === "Day" &&
+          {activeDateFormat === VIEW_FORMAT.Day &&
             days.map((d, index) => (
               <Day
                 key={index}
@@ -68,7 +65,7 @@ export const App = () => {
             ))}
         </div>
 
-        {activeDateFormat === "Weeks" ? <div></div> : ""}
+        {activeDateFormat === VIEW_FORMAT.Week ? <div></div> : ""}
       </div>
 
       {clicked && !eventForDate(clicked) && (

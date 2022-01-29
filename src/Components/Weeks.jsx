@@ -1,17 +1,13 @@
 import React from "react";
-import { WEEKDAYS } from "../utils/constant";
-import { VIEW_FORMAT } from "../config/enum";
-import { nanoid } from "nanoid";
+import {WEEKDAYS} from "../utils/constant";
+import {nanoid} from "nanoid";
+import {VIEW_FORMAT} from "../config/enum";
 
-export const Weeks = ({ activeDateFormat }) => {
-  if (activeDateFormat !== VIEW_FORMAT.Day) {
-    return <></>;
-  }
-
+export const Weeks = ({activeDateModel}) => {
   return (
     <div id="weekdays">
       {WEEKDAYS.map((weekday) => (
-        <div key={nanoid()}>{weekday}</div>
+        <div key={nanoid()}>{weekday} {activeDateModel === VIEW_FORMAT.Week ? 30 : ""}</div>
       ))}
     </div>
   );

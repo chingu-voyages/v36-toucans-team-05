@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { CalendarHeader } from "../CalendarHeader";
-import { Day } from "../Day";
-import { NewEventModal } from "../NewEventModal";
-import { EditEventModal } from "../EditEventModal";
-import { useDate } from "../hooks/useDate";
-import { Weeks } from "../Components/Weeks";
-import { VIEW_FORMAT } from "../config/enum";
+import React, {useEffect, useState} from "react";
+import {CalendarHeader} from "../CalendarHeader";
+import {Day} from "../Day";
+import {NewEventModal} from "../NewEventModal";
+import {EditEventModal} from "../EditEventModal";
+import {useDate} from "../hooks/useDate";
+import {Weeks} from "../Components/Weeks";
+import {WeekColumn} from "../Components/WeekColumn";
+import {VIEW_FORMAT} from "../config/enum";
 
 export const App = () => {
+  const [activeDateModel, setActiveDateModel] = useState(VIEW_FORMAT.Month);
+  const setDateFormat = (dateFormat) => setActiveDateModel(dateFormat);
+
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
   const [events, setEvents] = useState(
@@ -16,10 +20,7 @@ export const App = () => {
       : []
   );
 
-  const [activeDateFormat, setActiveDateFormat] = useState(VIEW_FORMAT.Day);
-  const setDateFormat = (dateFormat) => setActiveDateFormat(dateFormat);
-
-  const { days, dateDisplay } = useDate(events, nav);
+  const {days, dateDisplay} = useDate(events, nav, activeDateModel);
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -46,13 +47,18 @@ export const App = () => {
           onNext={() => setNav(nav + 1)}
           onBack={() => setNav(nav - 1)}
           setDateFormat={setDateFormat}
+          activeDateModel={activeDateModel}
         />
 
-        <Weeks activeDateFormat={activeDateFormat} />
+        {activeDateModel === VIEW_FORMAT.Month || activeDateModel === VIEW_FORMAT.Week ? (
+          <Weeks activeDateModel={activeDateModel}/>
+        ) : (
+          ""
+        )}
 
-        <div id="calendar">
-          {activeDateFormat === VIEW_FORMAT.Day &&
-            days.map((d, index) => (
+        {activeDateModel === VIEW_FORMAT.Month ? (
+          <div id="calendar">
+            {days.map((d, index) => (
               <Day
                 key={index}
                 day={d}
@@ -63,9 +69,12 @@ export const App = () => {
                 }}
               />
             ))}
-        </div>
+          </div>
+        ) : (
+          ""
+        )}
 
-        {activeDateFormat === VIEW_FORMAT.Week ? <div></div> : ""}
+        {activeDateModel === VIEW_FORMAT.Week ? <WeekColumn/> : ""}
       </div>
 
       {clicked && !eventForDate(clicked) && (

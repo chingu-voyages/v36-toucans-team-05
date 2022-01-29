@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import {WEEKDAYS} from "../utils/constant";
 
-export const useDate = (events, nav) => {
+export const useDate = (events, nav, activeDateModel) => {
   const [dateDisplay, setDateDisplay] = useState('');
   const [days, setDays] = useState([]);
 
   const eventForDate = date => events.find(e => e.date === date);
 
   useEffect(() => {
-    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dt = new Date();
 
     if (nav !== 0) {
@@ -28,7 +28,7 @@ export const useDate = (events, nav) => {
     });
 
     setDateDisplay(`${dt.toLocaleDateString('en-us', { month: 'long' })} ${year}`);
-    const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+    const paddingDays = WEEKDAYS.indexOf(dateString.split(', ')[0]);
 
     const daysArr = [];
 
@@ -51,6 +51,8 @@ export const useDate = (events, nav) => {
         });
       }
     }
+
+    // TODO: logics of the model
 
     setDays(daysArr);
   }, [events, nav]);

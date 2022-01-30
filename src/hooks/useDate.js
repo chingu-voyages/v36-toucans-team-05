@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {WEEKDAYS} from "../utils/constant";
+import {WEEKDAYS} from "@/utils/constant";
 import {useSelector} from "react-redux";
+import {VIEW_FORMAT} from "../Config/enum";
 
 export const useDate = (events, nav) => {
   const [dateDisplay, setDateDisplay] = useState('');
@@ -9,27 +10,42 @@ export const useDate = (events, nav) => {
   const view = useSelector((state) => state.view.value);
 
   const eventForDate = date => events.find(e => e.date === date);
+  const monthInText = (date) => date.toLocaleDateString('en-us', {month: 'long'});
 
   useEffect(() => {
     const dt = new Date();
+    let currentWeek = [];
+    let dateDisplayByView = '';
+    const year = dt.getFullYear();
 
-    if (nav !== 0) {
-      dt.setDate(1);
-      dt.setMonth(new Date().getMonth() + nav);
+    switch (view) {
+      case VIEW_FORMAT.Day:
+        dateDisplayByView = `${dt.toLocaleDateString('en-us', {month: 'long'})}, ${dt.getDay().toString().padStart(2, '0')}, ${year}`
+        break;
+      case VIEW_FORMAT.Week:
+        const parseDate = (number) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() - dt.getDay() + number + (nav * 7));
+
+        for (let j = 0; j <= 6; j++) {
+          currentWeek.push(parseDate(j));
+        }
+        setWeekDisplay(currentWeek);
+        dateDisplayByView = `${monthInText(currentWeek[0])} ${currentWeek[0].getDate()} - 
+        ${monthInText(currentWeek[currentWeek.length - 1])} ${currentWeek[currentWeek.length - 1].getDate()}, ${year}`
+        break;
+      case VIEW_FORMAT.Month:
+        if (nav !== 0) {
+          dt.setDate(1);
+          dt.setMonth(new Date().getMonth() + nav);
+        }
+        dateDisplayByView = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`
+        break;
+      default:
+        break;
     }
 
     const day = dt.getDate();
     const month = dt.getMonth();
-    const year = dt.getFullYear();
 
-    let newVal = [];
-    const nD = new Date();
-    for (let j = 0; j <= 6; j++) {
-      newVal.push(new Date(nD.setDate(nD.getDate() - nD.getDay() + j)));
-    }
-    setWeekDisplay(newVal);
-
-    // switch case
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
@@ -39,7 +55,7 @@ export const useDate = (events, nav) => {
       day: 'numeric',
     });
 
-    setDateDisplay(`${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`);
+    setDateDisplay(dateDisplayByView);
     const paddingDays = WEEKDAYS.indexOf(dateString.split(', ')[0]);
 
     const daysArr = [];

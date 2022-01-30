@@ -21,7 +21,7 @@ export const App = () => {
       : []
   );
 
-  const {days, dateDisplay, weekDisplay} = useDate(events, nav, view);
+  const {days, dateDisplay, weekDisplay} = useDate(events, nav);
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -39,6 +39,10 @@ export const App = () => {
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));
   }, [events]);
+
+  useEffect(() => {
+    setNav(0);
+  }, [view]);
 
   return (
     <>

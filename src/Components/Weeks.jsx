@@ -1,13 +1,17 @@
 import React from "react";
-import {WEEKDAYS} from "../utils/constant";
+import {WEEKDAYS} from "@/utils/constant";
 import {nanoid} from "nanoid";
-import {VIEW_FORMAT} from "../config/enum";
+import {VIEW_FORMAT} from "@/Config/enum";
 
-export const Weeks = ({activeDateModel}) => {
+export const Weeks = ({view, weekDisplay}) => {
+  const getDisplayWeekDay = (idx) => {
+    return weekDisplay[idx]?.getDate() || "";
+  };
+
   return (
     <div id="weekdays">
-      {WEEKDAYS.map((weekday) => (
-        <div key={nanoid()}>{weekday} {activeDateModel === VIEW_FORMAT.Week ? 30 : ""}</div>
+      {WEEKDAYS.map((weekday, index) => (
+        <div key={nanoid()}>{weekday} {view === VIEW_FORMAT.Week ? getDisplayWeekDay(index) : ""}</div>
       ))}
     </div>
   );

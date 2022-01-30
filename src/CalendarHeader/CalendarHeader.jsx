@@ -6,12 +6,11 @@ export const CalendarHeader = ({
                                  onBack,
                                  dateDisplay,
                                  setDateFormat,
-                                 activeDateModel,
                                }) => {
   return (
     <div id="header">
       <div id="dateFormatDisplay">
-        <ButtonList setDateFormat={setDateFormat} activeDateModel={activeDateModel}/>
+        <ButtonList setDateFormat={setDateFormat}/>
       </div>
 
       <div id="subheader">

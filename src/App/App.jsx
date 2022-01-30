@@ -4,13 +4,14 @@ import {Day} from "../Day";
 import {NewEventModal} from "../NewEventModal";
 import {EditEventModal} from "../EditEventModal";
 import {useDate} from "../hooks/useDate";
-import {Weeks} from "../Components/Weeks";
-import {WeekColumn} from "../Components/WeekColumn";
-import {VIEW_FORMAT} from "../config/enum";
+import {Weeks} from "@/Components/Weeks";
+import {WeekColumn} from "@/Components/WeekColumn";
+import {VIEW_FORMAT} from "@/Config/enum";
+import {nanoid} from 'nanoid'
+import {useSelector} from 'react-redux'
 
 export const App = () => {
-  const [activeDateModel, setActiveDateModel] = useState(VIEW_FORMAT.Month);
-  const setDateFormat = (dateFormat) => setActiveDateModel(dateFormat);
+  const view = useSelector((state) => state.view.value);
 
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
@@ -20,7 +21,7 @@ export const App = () => {
       : []
   );
 
-  const {days, dateDisplay} = useDate(events, nav, activeDateModel);
+  const {days, dateDisplay, weekDisplay} = useDate(events, nav, view);
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -46,17 +47,16 @@ export const App = () => {
           dateDisplay={dateDisplay}
           onNext={() => setNav(nav + 1)}
           onBack={() => setNav(nav - 1)}
-          setDateFormat={setDateFormat}
-          activeDateModel={activeDateModel}
+          view={view}
         />
 
-        {activeDateModel === VIEW_FORMAT.Month || activeDateModel === VIEW_FORMAT.Week ? (
-          <Weeks activeDateModel={activeDateModel}/>
+        {view === VIEW_FORMAT.Month || view === VIEW_FORMAT.Week ? (
+          <Weeks view={view} weekDisplay={weekDisplay}/>
         ) : (
           ""
         )}
 
-        {activeDateModel === VIEW_FORMAT.Month ? (
+        {view === VIEW_FORMAT.Month ? (
           <div id="calendar">
             {days.map((d, index) => (
               <Day
@@ -74,14 +74,14 @@ export const App = () => {
           ""
         )}
 
-        {activeDateModel === VIEW_FORMAT.Week ? <WeekColumn/> : ""}
+        {view === VIEW_FORMAT.Week ? <WeekColumn events={events} weekDisplay={weekDisplay}/> : null}
       </div>
 
       {clicked && !eventForDate(clicked) && (
         <NewEventModal
           onClose={() => setClicked(null)}
           onSave={(title) => {
-            setEvents([...events, { title, date: clicked, id: nanoid() }]);
+            setEvents([...events, {title, date: clicked, id: nanoid(), createdAt: Date.now()}]);
             setClicked(null);
           }}
         />

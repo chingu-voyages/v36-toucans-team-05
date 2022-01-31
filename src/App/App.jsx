@@ -3,12 +3,13 @@ import {CalendarHeader} from "../CalendarHeader";
 import {Day} from "../Day";
 import {NewEventModal} from "../NewEventModal";
 import {EditEventModal} from "../EditEventModal";
-import {useDate} from "../hooks/useDate";
+import {useDate} from "@/hooks/useDate";
 import {Weeks} from "@/Components/Weeks";
 import {WeekColumn} from "@/Components/WeekColumn";
 import {VIEW_FORMAT} from "@/Config/enum";
 import {nanoid} from 'nanoid'
 import {useSelector} from 'react-redux'
+import {DayView} from "@/Components/DayView";
 
 export const App = () => {
   const view = useSelector((state) => state.view.value);
@@ -21,7 +22,7 @@ export const App = () => {
       : []
   );
 
-  const {days, dateDisplay, weekDisplay} = useDate(events, nav);
+  const {days, dateDisplay, weekDisplay, dayDisplay} = useDate(events, nav);
 
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
@@ -78,7 +79,8 @@ export const App = () => {
           ""
         )}
 
-        {view === VIEW_FORMAT.Week ? <WeekColumn events={events} weekDisplay={weekDisplay}/> : null}
+        {view === VIEW_FORMAT.Week ? <WeekColumn events={events} weekDisplay={weekDisplay} setClicked={setClicked} /> : null}
+        {view === VIEW_FORMAT.Day ? <DayView events={events} dayDisplay={dayDisplay} setClicked={setClicked} /> : null}
       </div>
 
       {clicked && !eventForDate(clicked) && (

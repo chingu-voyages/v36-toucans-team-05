@@ -6,6 +6,7 @@ import {VIEW_FORMAT} from "../Config/enum";
 export const useDate = (events, nav) => {
   const [dateDisplay, setDateDisplay] = useState('');
   const [weekDisplay, setWeekDisplay] = useState([]);
+  const [dayDisplay, setDayDisplay] = useState('');
   const [days, setDays] = useState([]);
   const view = useSelector((state) => state.view.value);
 
@@ -20,7 +21,10 @@ export const useDate = (events, nav) => {
 
     switch (view) {
       case VIEW_FORMAT.Day:
-        dateDisplayByView = `${dt.toLocaleDateString('en-us', {month: 'long'})}, ${dt.getDay().toString().padStart(2, '0')}, ${year}`
+        dt.setDate(dt.getDate() + nav);
+        setDayDisplay(dt);
+        dateDisplayByView = `${dt.toLocaleDateString('en-us', {month: 'long'})}, 
+        ${dt.getDate().toString().padStart(2, '0')}, ${year}`;
         break;
       case VIEW_FORMAT.Week:
         const parseDate = (number) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() - dt.getDay() + number + (nav * 7));
@@ -86,5 +90,6 @@ export const useDate = (events, nav) => {
     days,
     dateDisplay,
     weekDisplay,
+    dayDisplay,
   };
 };

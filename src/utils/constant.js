@@ -1,4 +1,4 @@
-export const DATE_FORMAT = ["Day", "Week", "Month"]; // "Year"
+export const DATE_FORMAT = ["Month", "Week", "Day"]; // "Year"
 
 export const WEEKDAYS = [
   "Sunday",

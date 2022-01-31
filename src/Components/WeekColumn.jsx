@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WeekColumn = ({events, weekDisplay}) => {
+export const WeekColumn = ({events, weekDisplay, setClicked}) => {
   const CELL_HEIGHT = 25;
   const HOUR_PER_DAY = 24;
 

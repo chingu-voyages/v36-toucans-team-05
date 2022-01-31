@@ -25,6 +25,7 @@ export const WeekColumn = ({events, weekDisplay, setClicked}) => {
     <div id="weekColumn" style={divStyle}>
       {weekDisplay.map((day, index) => <div key={index}
                                             style={weekEventObject(day).cellStyle}
+                                            onClick={() => weekEventObject(day).title && setClicked(dayString(day))}
       ><span className={weekEventObject(day).title ? "info" : ''}>{weekEventObject(day).title}</span></div>)}
     </div>
   );

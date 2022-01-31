@@ -20,7 +20,8 @@ export const DayView = ({events, dayDisplay, setClicked}) => {
   return (
     <div id="dayView">
       {arr.map((item, idx) =>
-        (<div className={"dayContainer"} key={idx}><span className={"dayText"}>{item}</span><span
+        (<div className={"dayContainer"} key={idx} onClick={() => activeIndex(idx, currentDayEvent)
+          && setClicked(currentDayEvent[0]?.date)}><span className={"dayText"}>{item}</span><span
           className={[`dayMsg ${
             currentDayEvent.length !== 0 &&
             activeIndex(idx, currentDayEvent) ? 'active' : ''}`]}><span>{

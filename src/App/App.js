@@ -1,23 +1,21 @@
-import React, {useState, useEffect} from "../../snowpack/pkg/react.js";
+import React, {useEffect, useState} from "../../snowpack/pkg/react.js";
 import {CalendarHeader} from "../CalendarHeader/index.js";
 import {Day} from "../Day/index.js";
 import {NewEventModal} from "../NewEventModal/index.js";
 import {EditEventModal} from "../EditEventModal/index.js";
 import {useDate} from "../hooks/useDate.js";
+import {Weeks} from "../Components/Weeks.js";
+import {WeekColumn} from "../Components/WeekColumn.js";
+import {VIEW_FORMAT} from "../Config/enum.js";
 import {nanoid} from "../../snowpack/pkg/nanoid.js";
+import {useSelector} from "../../snowpack/pkg/react-redux.js";
+import {DayView} from "../Components/DayView.js";
 export const App = () => {
+  const view = useSelector((state) => state.view.value);
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
   const [events, setEvents] = useState(localStorage.getItem("events") ? JSON.parse(localStorage.getItem("events")) : []);
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
+  const {days, dateDisplay, weekDisplay, dayDisplay} = useDate(events, nav);
   const eventForDate = (date) => events.find((e) => e.date === date);
   const updateEventById = (title) => {
     events.map((item) => {
@@ -33,18 +31,20 @@ export const App = () => {
   useEffect(() => {
     localStorage.setItem("events", JSON.stringify(events));
   }, [events]);
-  const {days, dateDisplay} = useDate(events, nav);
+  useEffect(() => {
+    setNav(0);
+  }, [view]);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
     id: "container"
   }, /* @__PURE__ */ React.createElement(CalendarHeader, {
     dateDisplay,
     onNext: () => setNav(nav + 1),
-    onBack: () => setNav(nav - 1)
-  }), /* @__PURE__ */ React.createElement("div", {
-    id: "weekdays"
-  }, weekdays.map((weekday) => /* @__PURE__ */ React.createElement("div", {
-    key: nanoid()
-  }, weekday))), /* @__PURE__ */ React.createElement("div", {
+    onBack: () => setNav(nav - 1),
+    view
+  }), view === VIEW_FORMAT.Month || view === VIEW_FORMAT.Week ? /* @__PURE__ */ React.createElement(Weeks, {
+    view,
+    weekDisplay
+  }) : "", view === VIEW_FORMAT.Month ? /* @__PURE__ */ React.createElement("div", {
     id: "calendar"
   }, days.map((d, index) => /* @__PURE__ */ React.createElement(Day, {
     key: index,
@@ -54,10 +54,18 @@ export const App = () => {
         setClicked(d.date);
       }
     }
-  })))), clicked && !eventForDate(clicked) && /* @__PURE__ */ React.createElement(NewEventModal, {
+  }))) : "", view === VIEW_FORMAT.Week ? /* @__PURE__ */ React.createElement(WeekColumn, {
+    events,
+    weekDisplay,
+    setClicked
+  }) : null, view === VIEW_FORMAT.Day ? /* @__PURE__ */ React.createElement(DayView, {
+    events,
+    dayDisplay,
+    setClicked
+  }) : null), clicked && !eventForDate(clicked) && /* @__PURE__ */ React.createElement(NewEventModal, {
     onClose: () => setClicked(null),
     onSave: (title) => {
-      setEvents([...events, {title, date: clicked, id: nanoid()}]);
+      setEvents([...events, {title, date: clicked, id: nanoid(), createdAt: Date.now()}]);
       setClicked(null);
     }
   }), clicked && eventForDate(clicked) && /* @__PURE__ */ React.createElement(EditEventModal, {

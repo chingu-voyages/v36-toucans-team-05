@@ -4,6 +4,7 @@ body {
   justify-content: center;
   background-color: #FFFCFF;
 }
+
 button {
   margin-right: 2.5px;
   margin-left: 2.5px;
@@ -22,35 +23,41 @@ button {
   color: #d36c6c;
   font-size: 26px;
   font-family: sans-serif;
+}
+
+#subheader {
   display: flex;
   justify-content: space-between;
-}
-#header button {
-  background-color:#92a1d1;
-}
-#header > div {
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
+
+#header button {
+  background-color: #92a1d1;
+}
+
 #container {
   width: 770px;
 }
+
 #weekdays {
   width: 100%;
   display: flex;
   color: #247BA0;
 }
+
 #weekdays div {
   width: 100px;
   padding: 10px;
+  white-space: nowrap;
 }
+
 #calendar {
   width: 100%;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
 }
+
 .day {
   width: 100px;
   padding: 10px;
@@ -64,13 +71,15 @@ button {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .day:hover {
   background-color: #e8faed;
 }
 
 .day + .currentDay {
-  background-color:#e8f4fa;
+  background-color: #e8f4fa;
 }
+
 .event {
   font-size: 10px;
   padding: 3px;
@@ -85,11 +94,13 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .padding {
   cursor: default !important;
   background-color: #FFFCFF !important;
   box-shadow: none !important;
 }
+
 #newEventModal, #deleteEventModal, #editEventModal {
   z-index: 20;
   padding: 25px;
@@ -102,6 +113,7 @@ button {
   position: absolute;
   font-family: sans-serif;
 }
+
 #eventTitleInput {
   padding: 10px;
   width: 100%;
@@ -112,12 +124,15 @@ button {
   border: none;
   box-shadow: 0px 0px 3px gray;
 }
+
 #eventTitleInput.error {
   border: 2px solid red;
 }
+
 #cancelButton, #deleteButton {
   background-color: #d36c6c;
 }
+
 #saveButton, #closeButton {
   background-color: #92a1d1;
 }
@@ -127,12 +142,13 @@ button {
 }
 
 #saveButton {
-  background-color: rgb(13, 98, 255);
+  background-color: #0d62ff;
 }
 
 #eventText {
   font-size: 14px;
 }
+
 #modalBackDrop {
   top: 0px;
   left: 0px;
@@ -140,5 +156,84 @@ button {
   width: 100vw;
   height: 100vh;
   position: absolute;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#dateFormatDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+#dateFormatDisplay #buttonList button {
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+  background-color: #92a1d1;
+}
+#dateFormatDisplay #buttonList button.active {
+  background-color: #134dc9;
+}
+
+#weekColumn {
+  display: flex;
+  overflow: hidden;
+  background-size: 100% 25px;
+  background-image: linear-gradient(to right, lightgrey 1px, transparent 1px), linear-gradient(to bottom, lightgrey 1px, white 1px);
+}
+#weekColumn > div {
+  width: 100px;
+  padding: 0 10px;
+  border: 1px solid lightgrey;
+}
+#weekColumn .info {
+  margin-top: 2px;
+  font-size: 10px;
+  background-color: #58bae4;
+  color: white;
+  padding: 3px;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.dayContainer {
+  width: 100%;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+  height: 30px;
+  display: flex;
+}
+.dayContainer .dayText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 100%;
+  font-size: 12px;
+  color: lightgrey;
+}
+.dayContainer .dayMsg {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+}
+.dayContainer .dayMsg.active {
+  cursor: pointer;
+  font-size: 10px;
+  background-color: #58bae4;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+}
+.dayContainer .dayMsg.active span {
+  padding-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

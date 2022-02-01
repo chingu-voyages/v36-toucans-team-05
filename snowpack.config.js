@@ -7,7 +7,7 @@ module.exports = {
     /* ... */
   },
   plugins: [
-    /* ... */
+    '@snowpack/plugin-sass',
   ],
   packageOptions: {
     /* ... */
@@ -19,4 +19,7 @@ module.exports = {
     metaUrlPath: 'snowpack',
     baseUrl: './',
   },
+  alias: {
+    '@': './src',
+  }
 };

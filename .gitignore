@@ -131,3 +131,4 @@ dist
 .editorconfig
 
 build/
+.idea/*

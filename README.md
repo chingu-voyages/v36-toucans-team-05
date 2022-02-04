@@ -14,7 +14,7 @@ Many scheduling tools are complex and hard to use either the UI or UX, the most 
 
 *Structure*
 - [x] The landing page.
-- [ ] The months, dates, and days of the week.
+- [x] The months, dates, and days of the week.
 - [ ] A button/arrows on the calendar to change between years.
 
 *Styling*

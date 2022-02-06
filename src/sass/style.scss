@@ -1,8 +1,52 @@
+:root {
+  // light theme list
+  --default-background-color: #fffcff;
+  --default-button-color: white;
+  --default-header-color: #d36c6c;
+  --default-box-show-color: gray;
+  --default-weekday-color: #247ba0;
+  --default-active--button-background-color: rgb(13, 98, 255);
+  --default-padding-color: #e8f4fa;
+  --default-text-color: black;
+
+  // dark theme list
+  --dark-background-color: black;
+  --dark-button-color: white;
+  --dark-header-color: #ff6666;
+  --dark-box-show-color: gray;
+  --dark-weekday-color: #87d4ff;
+  --dark-active--button-background-color: darkblue;
+  --dark-padding-color: #a1a1a1;
+  --dark-text-color: white;
+}
+
+.Light {
+  --mainBg: var(--default-background-color);
+  --buttonColor: var(--default-button-color);
+  --headerTextColor: var(--default-header-color);
+  --boxShowColor: var(--default-box-show-color);
+  --weekday-color: var(--default-weekday-color);
+  --activeButtonBackground: var(--default-active--button-background-color);
+  --paddingColor: var(--default-padding-color);
+  --textColor: var(--default-text-color);
+}
+
+.Dark {
+  --mainBg: var(--dark-background-color);
+  --buttonColor: var(--dark-button-color);
+  --headerTextColor: var(--dark-header-color);
+  --boxShowColor: var(--dark-box-show-color);
+  --weekday-color: var(--dark-weekday-color);
+  --activeButtonBackground: var(--dark-active--button-background-color);
+  --paddingColor: var(--dark-padding-color);
+  --textColor: var(--dark-text-color);
+}
+
 body {
   display: flex;
   margin-top: 50px;
   justify-content: center;
-  background-color: #FFFCFF;
+  background-color: var(--mainBg);
 }
 
 button {
@@ -15,12 +59,16 @@ button {
   outline: none;
   padding: 5px;
   border-radius: 5px;
-  color: white;
+  color: var(--default-button-color);
+}
+
+h2 {
+  color: var(--textColor);
 }
 
 #header {
   padding: 10px;
-  color: #d36c6c;
+  color: var(--headerTextColor);
   font-size: 26px;
   font-family: sans-serif;
 }
@@ -42,7 +90,7 @@ button {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: var(--weekday-color);
 }
 
 #weekdays div {
@@ -64,9 +112,9 @@ button {
   height: 100px;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--paddingColor);
   margin: 5px;
-  box-shadow: 0px 0px 3px #CBD4C2;
+  box-shadow: 0px 0px 3px #cbd4c2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,7 +125,7 @@ button {
 }
 
 .day + .currentDay {
-  background-color: #e8f4fa;
+  background-color: var(--paddingColor);
 }
 
 .event {
@@ -97,14 +145,16 @@ button {
 
 .padding {
   cursor: default !important;
-  background-color: #FFFCFF !important;
+  background-color: var(--paddingColor) !important;
   box-shadow: none !important;
 }
 
-#newEventModal, #deleteEventModal, #editEventModal {
+#newEventModal,
+#deleteEventModal,
+#editEventModal {
   z-index: 20;
   padding: 25px;
-  background-color: #e8f4fa;
+  background-color: var(--paddingColor);
   box-shadow: 0px 0px 3px black;
   border-radius: 5px;
   width: 350px;
@@ -129,11 +179,13 @@ button {
   border: 2px solid red;
 }
 
-#cancelButton, #deleteButton {
+#cancelButton,
+#deleteButton {
   background-color: #d36c6c;
 }
 
-#saveButton, #closeButton {
+#saveButton,
+#closeButton {
   background-color: #92a1d1;
 }
 
@@ -147,6 +199,7 @@ button {
 
 #eventText {
   font-size: 14px;
+  color: var(--textColor);
 }
 
 #modalBackDrop {
@@ -164,6 +217,7 @@ button {
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  position: relative;
 
   #buttonList {
     button {
@@ -173,7 +227,7 @@ button {
       background-color: #92a1d1;
 
       &.active {
-        background-color: rgb(19, 77, 201);
+        background-color: var(--activeButtonBackground);
       }
     }
   }
@@ -184,7 +238,7 @@ button {
   overflow: hidden;
   background-size: 100% 25px;
   background-image: linear-gradient(to right, lightgrey 1px, transparent 1px),
-  linear-gradient(to bottom, lightgrey 1px, white 1px);
+    linear-gradient(to bottom, lightgrey 1px, white 1px);
 
   > div {
     width: 100px;
@@ -246,3 +300,35 @@ button {
     }
   }
 }
+
+#nextBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#themeMode {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .moonSvg {
+    width: 25px;
+    height: 25px;
+    color:white;
+  }
+
+  .sunSvg {
+    width: 25px;
+    height: 25px;
+    color:black;
+  }
+}
+

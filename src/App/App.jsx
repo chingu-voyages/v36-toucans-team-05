@@ -6,13 +6,22 @@ import {EditEventModal} from "../EditEventModal";
 import {useDate} from "@/hooks/useDate";
 import {Weeks} from "@/Components/Weeks";
 import {WeekColumn} from "@/Components/WeekColumn";
-import {VIEW_FORMAT} from "@/Config/enum";
+import {VIEW_FORMAT, THEME_MODE} from "@/Config/enum";
 import {nanoid} from 'nanoid'
 import {useSelector} from 'react-redux'
 import {DayView} from "@/Components/DayView";
 
 export const App = () => {
   const view = useSelector((state) => state.view.value);
+
+  const [activeTheme, setActiveTheme] = useState(THEME_MODE.Light);
+  useEffect(() => {
+    document.body.classList.add(activeTheme);
+  
+    return function cleanup() {
+      document.body.classList.remove(activeTheme);
+    };
+  }, [activeTheme]);
 
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
@@ -53,6 +62,8 @@ export const App = () => {
           onNext={() => setNav(nav + 1)}
           onBack={() => setNav(nav - 1)}
           view={view}
+          setActiveTheme={() => setActiveTheme(activeTheme === THEME_MODE.Light ? THEME_MODE.Dark : THEME_MODE.Light)}
+          activeTheme={activeTheme}
         />
 
         {view === VIEW_FORMAT.Month || view === VIEW_FORMAT.Week ? (

@@ -4,3 +4,8 @@ export const VIEW_FORMAT = {
   Month: "Month",
   Year: "Year"
 }
+
+export const THEME_MODE = {
+  Light: "Light",
+  Dark: "Dark"
+}

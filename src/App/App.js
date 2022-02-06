@@ -6,12 +6,19 @@ import {EditEventModal} from "../EditEventModal/index.js";
 import {useDate} from "../hooks/useDate.js";
 import {Weeks} from "../Components/Weeks.js";
 import {WeekColumn} from "../Components/WeekColumn.js";
-import {VIEW_FORMAT} from "../Config/enum.js";
+import {VIEW_FORMAT, THEME_MODE} from "../Config/enum.js";
 import {nanoid} from "../../snowpack/pkg/nanoid.js";
 import {useSelector} from "../../snowpack/pkg/react-redux.js";
 import {DayView} from "../Components/DayView.js";
 export const App = () => {
   const view = useSelector((state) => state.view.value);
+  const [activeTheme, setActiveTheme] = useState(THEME_MODE.Light);
+  useEffect(() => {
+    document.body.classList.add(activeTheme);
+    return function cleanup() {
+      document.body.classList.remove(activeTheme);
+    };
+  }, [activeTheme]);
   const [nav, setNav] = useState(0);
   const [clicked, setClicked] = useState();
   const [events, setEvents] = useState(localStorage.getItem("events") ? JSON.parse(localStorage.getItem("events")) : []);
@@ -40,7 +47,9 @@ export const App = () => {
     dateDisplay,
     onNext: () => setNav(nav + 1),
     onBack: () => setNav(nav - 1),
-    view
+    view,
+    setActiveTheme: () => setActiveTheme(activeTheme === THEME_MODE.Light ? THEME_MODE.Dark : THEME_MODE.Light),
+    activeTheme
   }), view === VIEW_FORMAT.Month || view === VIEW_FORMAT.Week ? /* @__PURE__ */ React.createElement(Weeks, {
     view,
     weekDisplay

@@ -14,13 +14,12 @@ Many scheduling tools are complex and hard to use either the UI or UX, the most 
 
 *Structure*
 - [x] The landing page.
-- [ ] The months, dates, and days of the week.
-- [ ] A button/arrows on the calendar to change between years.
+- [x] The months, dates, and days of the week.
 
 *Styling*
 - [ ] Customize the theme of the calendar
 
-*Functionlality*
+*Functionality*
 - [ ] Add an event when a date is clicked.
 - [x] Tasks - Create, manage and view your task note on the calendar date that clicked
 - [x] Schedule simple events

@@ -6,7 +6,9 @@ Many scheduling tools are complex and hard to use either the UI or UX, the most 
 
 # Demo
 
-[Demo Link](https://chingu-voyages.github.io/v36-toucans-team-05/)
+Github Page: [Demo Link](https://chingu-voyages.github.io/v36-toucans-team-05/)
+
+Netlify: [Demo Link](https://calendar-v1.netlify.app/)
 
 # Features
 
@@ -17,7 +19,7 @@ Many scheduling tools are complex and hard to use either the UI or UX, the most 
 - [x] The months, dates, and days of the week.
 
 *Styling*
-- [ ] Customize the theme of the calendar
+- [x] Customize the theme of the calendar
 
 *Functionality*
 - [ ] Add an event when a date is clicked.

@@ -238,7 +238,7 @@ h2 {
   overflow: hidden;
   background-size: 100% 25px;
   background-image: linear-gradient(to right, lightgrey 1px, transparent 1px),
-    linear-gradient(to bottom, lightgrey 1px, white 1px);
+    linear-gradient(to bottom, lightgrey 1px, var(--paddingColor) 1px);
 
   > div {
     width: 100px;

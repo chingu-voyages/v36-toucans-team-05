@@ -1,6 +1,6 @@
 # Calendar App
 
-![Calendar App Demo](calendar-app.gif)
+![Calendar App Demo](./src/demo.gif)
 
 # Overview
 
@@ -31,7 +31,7 @@ _Functionality_
 - [x] Tasks - Create, manage and view your task note on the calendar date that clicked
 - [x] Schedule simple events
 
-_Extras_ 
+_Extras_
 
 - [ ] Allow adding public holidays of many countries around the world (optional)
 - [ ] Share and view calendar (optional)
